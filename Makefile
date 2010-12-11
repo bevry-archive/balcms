@@ -22,10 +22,11 @@ init:
 	git remote add balcms ssh://sls@v2.springloops.com:1234/balupton/balcms.git ;
 	git fetch balcms ;
 	rm Makefile ;
-	git checkout -b v1.0.0-balcms balcms/master ;
-	git branch v1.0.0-dev ;
-	git branch v1.0.0 ;
+	git checkout -b $(BALCMS_VERSION)-balcms balcms/master ;
+	git branch $(BALCMS_VERSION)-dev ;
+	git branch $(BALCMS_VERSION) ;
 	git branch master ;
+	git checkout $(BALCMS_VERSION)-dev ;
 
 clean:
 	rm -Rf \
