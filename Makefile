@@ -21,6 +21,7 @@ init:
 	# git remote add balcms git://github.com/balupton/balcms.git ;
 	git remote add balcms ssh://sls@v2.springloops.com:1234/balupton/balcms.git ;
 	git fetch balcms ;
+	rm Makefile ;
 	git checkout -b v1.0.0-balcms balcms/master ;
 	git branch v1.0.0-dev ;
 	git branch v1.0.0 ;
