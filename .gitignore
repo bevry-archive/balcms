@@ -1,8 +1,9 @@
-# Remove These Once You've Installed
+# == remove below in your installation == # 
 config.php
 application/config/*.yml
 application/data/fixtures/data.yml
 application/data/schema/schema.yml
+# == remove above in your installation == #
 
 # Standard Ignores
 application/data/database/*.db

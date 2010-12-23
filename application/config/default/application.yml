@@ -198,6 +198,7 @@ default: &default
     		code: 'scaffold'
     	script:
     		code: 'closure-webservice'
+    		path: "<?=CLOSURE_COMPILER_PATH?>"
     	
         csscaffold:
             config:
