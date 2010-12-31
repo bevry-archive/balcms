@@ -18,11 +18,10 @@ default:
 
 init:
 	git init ;
-	# git remote add balcms git://github.com/balupton/balcms.git ;
-	git remote add balcms ssh://sls@v2.springloops.com:1234/balupton/balcms.git ;
+	git remote add balcms git://github.com/balupton/balcms.git ;
 	git fetch balcms ;
 	rm Makefile ;
-	git checkout -b $(BALCMS_VERSION)-balcms balcms/master ;
+	git checkout -b $(BALCMS_VERSION)-balcms balcms/$(BALCMS_VERSION)-balcms ;
 	git branch $(BALCMS_VERSION)-dev ;
 	git branch $(BALCMS_VERSION) ;
 	git branch master ;
@@ -59,7 +58,7 @@ add:
 	git add -u ;
 
 update:
-	git checkout $(BALCMS_VERSION)-balcms; git pull balcms master; git checkout $(BALCMS_VERSION)-dev; git merge $(BALCMS_VERSION)-balcms;
+	git checkout $(BALCMS_VERSION)-balcms; git pull balcms $(BALCMS_VERSION)-balcms; git checkout $(BALCMS_VERSION)-dev; git merge $(BALCMS_VERSION)-balcms;
 
 deploy:
 	git checkout $(BALCMS_VERSION); git merge $(BALCMS_VERSION)-dev; git checkout master; git merge $(BALCMS_VERSION); git checkout $(BALCMS_VERSION)-dev; git push origin --all;
