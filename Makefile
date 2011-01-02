@@ -10,6 +10,9 @@ MAKE = make $(MAKEFLAGS)
 # Current BalCMS Version
 BALCMS_VERSION = v1.0.0
 
+# PHP Executable
+PHPBIN = php5
+
 # ======================
 # Commands
 
@@ -62,24 +65,24 @@ clean-css:
 		public/media/cache/styles/*;
 
 configure:
-	php5 ./scripts/configure;
+	$(PHPBIN) ./scripts/configure;
 
 permissions:
-	php5 ./scripts/setup.php permissions;
+	$(PHPBIN) ./scripts/setup.php permissions;
 	cd common/SymfonyComponents/YAML; git reset --hard; # fix permissions for non-writable submodule
 
 install:
-	php5 ./scripts/setup.php install;
+	$(PHPBIN) ./scripts/setup.php install;
 	cd common/SymfonyComponents/YAML; git reset --hard; # fix permissions for non-writable submodule
 
 setup:
-	php5 ./scripts/setup.php;
+	$(PHPBIN) ./scripts/setup.php;
 
 ignore:
 	edit .gitignore;
 
 cron:
-	php5 ./scripts/cron.php;
+	$(PHPBIN) ./scripts/cron.php;
 
 add:
 	git add -u;

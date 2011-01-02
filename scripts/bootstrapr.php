@@ -23,7 +23,7 @@ if ( !class_exists('Bootstrapr') ) {
 				return true;
 			}
 			$this->bootstraped[$code] = true;
-		
+			
 			# Fire
 			$function = '_init'.$code;
 			$this->$function();
@@ -274,7 +274,7 @@ if ( !class_exists('Bootstrapr') ) {
 		public function ensurePath ( $path ) {
 			system('mkdir -p '.dirname($path));
 			touch($path);
-			flush();
+			// flush(); - will cause headers_sent to be true, and cause the application to fail
 			return true;
 		}
 		
