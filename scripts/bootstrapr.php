@@ -274,6 +274,7 @@ if ( !class_exists('Bootstrapr') ) {
 		public function ensurePath ( $path ) {
 			system('mkdir -p '.dirname($path));
 			touch($path);
+			flush();
 			return true;
 		}
 		

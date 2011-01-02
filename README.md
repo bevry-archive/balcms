@@ -78,7 +78,7 @@ These installations will provide you with the following requirements:
 	> Explanation: What we are doing here is creating our new website directory (folder), then fetching a Makefile. A Makefile is a index of a series of instructions we can run. Having this file, we can then run `make init-new; make configure; make install` - this command is actually three separate commands (as denominated by the `;` symbol). The `make init-new` initialises our local repository (as a new repository), and grabs the core of the CMS. We then run `make configure` which fetches the CMS's dependencies and requirements and configures the directory structure. Finally the `make install` installs the CMS's database, adjusts the permissions and runs any cron jobs.
 
 2.	While that is running, your website will need it's own Git Repository.
-	You can create one on GitHub (if you have a paid account), or [you can find an alternative private git host](http://stackoverflow.com/questions/109440/best-git-repository-hosting-for-commercial-project).
+	You can create one on [GitHub](https://github.com) (if you have a paid account), or [you can find an alternative private git host](http://stackoverflow.com/questions/109440/best-git-repository-hosting-for-commercial-project).
 
 3.	One those commands have run, and your remote git repository is set up. We want to associate our local repository with the remote repository. We do this by copying our remote repository's read+write url, it should look something like this `git@github.com:balupton/balcms.git`. With that we will run the following commands:
 
