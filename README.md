@@ -76,7 +76,7 @@ These installations will provide you with the following requirements:
 2.	While that is running, your website will need it's own Git Repository.
 	You can create one on [GitHub](https://github.com) (if you have a paid account), or [you can find an alternative private git host](http://stackoverflow.com/questions/109440/best-git-repository-hosting-for-commercial-project).
 
-3.	One those commands have run, and your remote git repository is set up. We want to associate our local repository with the remote repository. We do this by copying our remote repository's read+write url, it should look something like this `git@github.com:balupton/balcms.git`. With that we will run the following commands:
+3.	Once those commands have run, and your remote git repository is set up. We want to associate our local repository with the remote repository. We do this by copying our remote repository's read+write url, it should look something like this `git@github.com:balupton/balcms.git`. With that we will run the following commands:
 
 		git remote add origin {your git repos read/write url} ; make deploy
 	

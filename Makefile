@@ -64,9 +64,11 @@ configure:
 
 permissions:
 	php5 ./scripts/setup.php permissions;
+	cd common/SymfonyComponents/YAML; git reset --hard; # fix permissions for non-writable submodule
 
 install:
 	php5 ./scripts/setup.php install;
+	cd common/SymfonyComponents/YAML; git reset --hard; # fix permissions for non-writable submodule
 
 setup:
 	php5 ./scripts/setup.php;
