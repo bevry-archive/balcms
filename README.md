@@ -41,18 +41,14 @@ There will never be a front end gui to replace the dependency on the command lin
 
 For Windows you will need to install:
 
-- unix commands - http://www.cygwin.com/setup.exe
-- git - http://git-scm.com/download
-- zend server - http://www.zend.com/en/products/server-ce/downloads
-- mysql server - http://www.mysql.com/downloads/mysql/
-- mysql workbench - http://www.mysql.com/downloads/workbench/
+- cygwin (unix commands, e.g. curl, chmod, make) - [download](http://www.cygwin.com/setup.exe), [about](http://www.cygwin.com/)
+- git - [download](http://git-scm.com/download), [about](http://git-scm.com/)
+- zend server (apache, php 5.3, sqlite, mysql 5) - [download](http://www.zend.com/en/products/server-ce/downloads). [about](http://www.zend.com/en/products/server-ce/)
 
 For Unix/Mac/Linux you will need to install:
 
-- git - http://git-scm.com/download
-- zend server - http://www.zend.com/en/products/server-ce/downloads
-- mysql server - http://www.mysql.com/downloads/mysql/
-- mysql workbench - http://www.mysql.com/downloads/workbench/
+- git - [download](http://git-scm.com/download), [about](http://git-scm.com/)
+- zend server (apache, php 5.3, sqlite, mysql 5) - [download](http://www.zend.com/en/products/server-ce/downloads). [about](http://www.zend.com/en/products/server-ce/)
 
 These installations will provide you with the following requirements:
 
@@ -60,10 +56,10 @@ These installations will provide you with the following requirements:
 - chmod
 - make
 - git
-- php
+- php 5.3 (5.2 still works, however we are moving in the 5.3 direction)
 - apache
 - sqlite
-- mysql
+- mysql 5
 
 
 ## Creating a New BalCMS Website
