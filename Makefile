@@ -26,6 +26,9 @@ init-new:
 	git branch $(BALCMS_VERSION);
 	git branch master;
 	git checkout $(BALCMS_VERSION)-dev;
+	sed '1,7d' .gitignore > .gitignore; # removes ignores that are for the base balcms repo only
+	git add .gitignore;
+	git commit -m "Updated .gitignore for our application. Welcome.";
 
 init-existing:
 	git remote add balcms git://github.com/balupton/balcms.git;
