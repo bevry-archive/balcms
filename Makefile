@@ -29,6 +29,8 @@ init-new:
 	sed '1,7d' .gitignore > .gitignore; # removes ignores that are for the base balcms repo only
 	git add .gitignore;
 	git commit -m "Updated .gitignore for our application. Welcome.";
+	#git add .gitignore config.php application/config/*.yml application/data/fixtures/data.yml application/data/schema/schema.yml;
+	#git commit -m "Customised our BalCMS install for a Custom Application. Welcome to BalCMS.";
 
 init-existing:
 	git remote add balcms git://github.com/balupton/balcms.git;
