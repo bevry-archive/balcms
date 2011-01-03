@@ -24,7 +24,9 @@ birth:
 	$(MAKE) configure;
 	$(MAKE) install;
 	# Commit Customised Configuration Changes
+	git add -u;
 	git add \
+		.gitignore \
 		config.php \
 		application/config/*.yml \
 		application/data/database \

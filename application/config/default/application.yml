@@ -287,3 +287,7 @@ default_development: &default_development
         store: true
     editor:
         code: aloha
+    compiler:
+    	script:
+    		code: 'closure-compiler'
+    	

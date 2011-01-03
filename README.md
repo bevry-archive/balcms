@@ -90,7 +90,9 @@ These installations will provide you with the following requirements:
 	
 	> We want to send our changes to the remote repository as that we can deploy to our remote server (where our website will actually be hosted and accessed). Other benefits are also in case our development environment crashes, we will have a remote backup. The last benefit and perhaps the best one, is that if we are working with other people, it allows us to all collaborate together seamlessly.
 
-3.	Once all that is done, you'll now be able to visit your new BalCMS website. So lets navigate to our localhost and the directory we installed it in. Eg. `http://localhost/sites/mywebsite`.
+3.	Once all that is done, you'll now be able to visit your new BalCMS website. So lets navigate to our localhost and the directory we installed it in (e.g. `http://localhost/sites/mywebsite`).
+
+4.	To administrate your new website, you'll go the `admin` location on your website (e.g. `http://localhost/sites/mywebsite/admin`). The default username is `admin` and password is `random` - these are specified in the configuration file `application/data/fixtures/data.yml`, or you can change them by using the Users Administration area.
 
 
 ## The Structure of BalCMS

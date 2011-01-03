@@ -182,11 +182,11 @@ default: &default
     
     # Compilers
     SCAFFOLD_COMPILER_PATH: >
-        <?=PUBLIC_STYLES_PATH?>/scaffold.php?>
+        <?=PUBLIC_STYLES_PATH?>/scaffold.php
     CSSCAFFOLD_COMPILER_PATH: >
-    	<?=PUBLIC_STYLES_PATH?>/csscaffold.php?>
+    	<?=PUBLIC_STYLES_PATH?>/csscaffold.php
     CLOSURE_COMPILER_PATH: >
-    	/Users/balupton/bin/closure.jar
+        <?=SCRIPTS_PATH?>/compilers/closure.jar
 
 # Default Environments
 default_production: &default_production
