@@ -24,8 +24,19 @@ birth:
 	$(MAKE) configure;
 	$(MAKE) install;
 	# Commit Customised Configuration Changes
-	git add config.php application/config/*.yml application/data/fixtures/data.yml application/data/schema/schema.yml;
-	git commit -m "Customised our BalCMS Installation for a Custom Application. Welcome to BalCMS.";
+	git add \
+		config.php \
+		application/config/*.yml \
+		application/data/fixtures/data.yml \
+		application/data/schema/schema.yml \
+		application/config/compiled \
+		application/data/cache \
+		application/data/database \
+		application/data/schema/compiled \
+		application/models/Bal \
+		application/models/Base \
+		library ;
+	git commit -m "Welcome to BalCMS.";
 
 init-new:
 	git init;
