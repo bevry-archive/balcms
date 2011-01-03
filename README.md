@@ -41,14 +41,14 @@ There will never be a front end gui to replace the dependency on the command lin
 
 For Windows you will need to install:
 
-- cygwin (unix commands, e.g. curl, chmod, make) - [download](http://www.cygwin.com/setup.exe), [about](http://www.cygwin.com/)
-- git - [download](http://git-scm.com/download), [about](http://git-scm.com/)
-- zend server (apache, php 5.3, sqlite, mysql 5) - [download](http://www.zend.com/en/products/server-ce/downloads). [about](http://www.zend.com/en/products/server-ce/)
+- cygwin (unix commands, e.g. curl, chmod, make) - [download](http://www.cygwin.com/setup.exe), [about](http://www.cygwin.com/).
+- git - [download](http://git-scm.com/download), [about](http://git-scm.com/).
+- zend server (apache, php 5.3, sqlite, mysql 5) - [download](http://www.zend.com/en/products/server-ce/downloads), [about](http://www.zend.com/en/products/server-ce/).
 
 For Unix/Mac/Linux you will need to install:
 
-- git - [download](http://git-scm.com/download), [about](http://git-scm.com/)
-- zend server (apache, php 5.3, sqlite, mysql 5) - [download](http://www.zend.com/en/products/server-ce/downloads). [about](http://www.zend.com/en/products/server-ce/)
+- git - [download](http://git-scm.com/download), [about](http://git-scm.com/).
+- zend server (apache, php 5.3, sqlite, mysql 5) - [download](http://www.zend.com/en/products/server-ce/downloads), [about](http://www.zend.com/en/products/server-ce/).
 
 These installations will provide you with the following requirements:
 
@@ -90,7 +90,7 @@ These installations will provide you with the following requirements:
 	
 	> We want to send our changes to the remote repository as that we can deploy to our remote server (where our website will actually be hosted and accessed). Other benefits are also in case our development environment crashes, we will have a remote backup. The last benefit and perhaps the best one, is that if we are working with other people, it allows us to all collaborate together seamlessly.
 
-3.	Once all that is done, you'll now be able to visit your new BalCMS website. So lets navigate to our localhost and the directory we installed it in. Eg. `http://localhost/sites/mynewwebsite`.
+3.	Once all that is done, you'll now be able to visit your new BalCMS website. So lets navigate to our localhost and the directory we installed it in. Eg. `http://localhost/sites/mywebsite`.
 
 
 ## The Structure of BalCMS
