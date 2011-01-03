@@ -27,14 +27,9 @@ birth:
 	git add \
 		config.php \
 		application/config/*.yml \
+		application/data/database \
 		application/data/fixtures/data.yml \
 		application/data/schema/schema.yml \
-		application/config/compiled \
-		application/data/cache \
-		application/data/database \
-		application/data/schema/compiled \
-		application/models/Bal \
-		application/models/Base \
 		library ;
 	git commit -m "Welcome to BalCMS.";
 
