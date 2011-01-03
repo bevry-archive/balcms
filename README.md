@@ -69,9 +69,15 @@ These installations will provide you with the following requirements:
 		mkdir mywebsite
 		cd mywebsite
 		curl -OL http://github.com/balupton/balcms/raw/master/Makefile
-		make init-new; make configure; make install
+		make birth
 
-	> Explanation: What we are doing here is creating our new website directory (folder), then fetching a Makefile. A Makefile is a index of a series of instructions we can run. Having this file, we can then run `make init-new; make configure; make install` - this command is actually three separate commands (as denominated by the `;` symbol). The `make init-new` initialises our local repository (as a new repository), and grabs the core of the CMS. We then run `make configure` which fetches the CMS's dependencies and requirements and configures the directory structure. Finally the `make install` installs the CMS's database, adjusts the permissions and runs any cron jobs.
+	> Explanation: What we are doing here is creating our new website directory (folder), then fetching a Makefile. A Makefile is a index of a series of instructions we can run. Having this file, we can then run `make birth`. The `make birth` command is actually comprised of three other view important commands which are:
+		
+	> - `make init-new` which initialises our local repository (as a new repository), and grabs the core of the CMS
+	> - `make configure` which fetches the CMS's dependencies and requirements and configures the directory structure
+	> - `make install` which installs the CMS's database, adjusts the permissions and runs any cron jobs.
+		
+	> We will be using these commands and similar later on.
 
 2.	While that is running, your website will need it's own Git Repository.
 	You can create one on [GitHub](https://github.com) (if you have a paid account), or [you can find an alternative private git host](http://stackoverflow.com/questions/109440/best-git-repository-hosting-for-commercial-project).
