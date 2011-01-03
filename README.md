@@ -197,6 +197,7 @@ BalCMS has configuration files in the following locations:
 			core.yml - Used to specify the paths that our environments will use.
 			nav.yml - Used to specify navigation items used in our CMS.
 			routes.yml - Used to specify how requests are directed in our CMS.
+			default/ - Contains the files that the above config files inherit their config from. Never edit the files in this directory (as they will be overwritten when you do an upgrade).
 		data/
 			fixtures/
 				data.yml - Used to specify the default data that is loaded into our database
@@ -268,6 +269,12 @@ Setting up the live server can be done by either of the following two ways.
 1.	To upgrade your application to the latest BalCMS version, you'll just need to run `make upgrade` in your application's directory.
 
 	>	Explanation: What this will do is fetch the latest BalCMS version into the balcms branch, and merge it into our dev branch. It will then run `make configure` to ensure the configuration and structure of BalCMS is up to date.
+
+
+## Known Issues
+
+- Event functionality in the admin is broken. - It is in the process of being removed.
+- Media uploads is broken. - It's undergoing an update and is being fixed.
 
 
 ## Thanks!
