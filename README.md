@@ -169,14 +169,14 @@ So let's take a look at the structure:
 			albeo/ - The default theme. Creamy green.
 			balcms/ - The adminstration theme.
 			titan - A creamy brown theme.
-			
-		README.md - This readme that you're reading right now.
 		
-		robots.txt - What to tell Search Engines. Read up on google.
-		
-		scripts/ - Contains scripts used by our Makefile to perform specific actions
-		
-		tests/ - Unit tests for our application.
+	README.md - This readme that you're reading right now.
+	
+	robots.txt - What to tell Search Engines. Read up on google.
+	
+	scripts/ - Contains scripts used by our Makefile to perform specific actions
+	
+	tests/ - Unit tests for our application.
 
 
 If any of the above was confusing, please reference the following articles:
