@@ -268,7 +268,11 @@ Setting up the live server can be done by either of the following two ways.
 
 1.	To upgrade your application to the latest BalCMS version, you'll just need to run `make upgrade` in your application's directory.
 
-	>	Explanation: What this will do is fetch the latest BalCMS version into the balcms branch, and merge it into our dev branch. It will then run `make configure` to ensure the configuration and structure of BalCMS is up to date.
+	>	Explanation: What this will do is fetch the latest BalCMS version into the balcms branch, and merge it into our dev branch.
+	
+2.	If you have any conflicts you can use `git mergetool` to sort them out.
+
+3.	Once all the conflicts are resolved, and the upgrade went successfully you'll want to run `make configure` to update any submodules/dependencies/requirements that we use.
 
 
 ## Known Issues
