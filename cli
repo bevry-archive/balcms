@@ -196,11 +196,15 @@ class App
   # Configurers
   
   def configure
+    clean_config
+    
     puts \
     `#{php_binary} ./scripts/configure`
   end
   
   def install
+    clean_config
+    
     puts \
     `#{php_binary} ./scripts/setup.php install`
     
@@ -209,6 +213,8 @@ class App
 	end
   
   def permissions
+    clean_config
+    
     puts \
     ` #{php_binary} ./scripts/setup.php permissions`
 	  
@@ -283,7 +289,6 @@ class App
   
   def clean
     clean_config
-    clean_media
     clean_styles
     clean_scripts
   end
