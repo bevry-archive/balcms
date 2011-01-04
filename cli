@@ -23,6 +23,7 @@
 #   cli deploy
 #
 #   cli clean
+#   cli clean-media
 #   cli clean-config
 #   cli clean-styles
 #   cli clean-scripts
@@ -282,8 +283,16 @@ class App
   
   def clean
     clean_config
+    clean_media
     clean_styles
     clean_scripts
+  end
+  
+  def clean_media
+    puts \
+  	` rm -Rf \
+  	  	public/media/images/* \
+  	  	public/media/uploads/* `
   end
   
   def clean_config
