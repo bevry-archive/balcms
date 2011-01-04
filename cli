@@ -65,6 +65,10 @@ require 'date'
 
 class App
   BALCMS_VERSION = :'1.0.0'
+  BRANCH_STABLE = :'v1.0.0'
+  BRANCH_DEV = :'v1.0.0-dev'
+  BRANCH_BALCMS = :'v1.0.0-balcms'
+  BRANCH_MASTER = :'master'
   MIN_PHP_VERSION = 5.3
   MIN_GIT_VERSION = 1.6 # actually, only 1.5.3 is needed, but the comparison could get complicated
   attr_accessor :php_binary
@@ -145,11 +149,11 @@ class App
   	  git remote add balcms git://github.com/balupton/balcms.git;
     	git fetch balcms;
     	rm Makefile;
-    	git checkout -b #{BALCMS_VERSION}-balcms balcms/#{BALCMS_VERSION};
-    	git branch #{BALCMS_VERSION}-dev;
-    	git branch #{BALCMS_VERSION};
-    	git branch master;
-    	git checkout #{BALCMS_VERSION}-dev;
+    	git checkout -b #{BRANCH_BALCMS} balcms/#{BRANCH_STABLE};
+    	git branch #{BRANCH_DEV};
+    	git branch #{BRANCH_STABLE};
+    	git branch #{BRANCH_MASTER};
+    	git checkout #{BRANCH_DEV};
     	sed '1,7d' .gitignore > .tmp; rm .gitignore; mv .tmp .gitignore
     	git add .gitignore;
     	git commit -m "Updated .gitignore for our application. Welcome.";`
@@ -167,10 +171,10 @@ class App
     	git fetch balcms;
     	git fetch origin;
     	rm Makefile;
-    	git checkout -b #{BALCMS_VERSION}-balcms balcms/#{BALCMS_VERSION};
-    	git checkout -b #{BALCMS_VERSION}-dev origin/#{BALCMS_VERSION}-dev;
-    	git checkout -b #{BALCMS_VERSION} origin/#{BALCMS_VERSION};
-    	git checkout -b master origin/master;`
+    	git checkout -b #{BRANCH_BALCMS} balcms/#{BRANCH_STABLE};
+    	git checkout -b #{BRANCH_DEV} origin/#{BRANCH_DEV};
+    	git checkout -b #{BRANCH_STABLE} origin/#{BRANCH_STABLE};
+    	git checkout -b #{BRANCH_MASTER} origin/#{BRANCH_MASTER};`
   end
   
   # ===========================================================================
@@ -217,12 +221,12 @@ class App
   
   def stable
     puts \
-    ` git checkout #{BALCMS_VERSION};`
+    ` git checkout #{BRANCH_STABLE};`
   end
 
   def dev
     puts \
-    ` git checkout #{BALCMS_VERSION}-dev;`
+    ` git checkout #{BRANCH_DEV};`
   end
 
   def master
@@ -232,10 +236,10 @@ class App
 
   def upgrade
     puts \
-    ` git checkout #{BALCMS_VERSION}-balcms;
-      git pull balcms #{BALCMS_VERSION};
-      git checkout #{BALCMS_VERSION}-dev;
-      git merge #{BALCMS_VERSION}-balcms;`
+    ` git checkout #{BRANCH_BALCMS};
+      git pull balcms #{BRANCH_STABLE};
+      git checkout #{BRANCH_DEV};
+      git merge #{BRANCH_BALCMS};`
   end
 
   def update
@@ -245,12 +249,17 @@ class App
   end
 
   def deploy
+    result = `git status`
+    if result.include? 'Changed but not updated'
+      abort("You have un-committed changes that need to be committed before we can deploy.\n#{result}")
+    end
+    
     puts \
-    ` git checkout #{BALCMS_VERSION};
-      git merge #{BALCMS_VERSION}-dev;
-      git checkout master;
-      git merge #{BALCMS_VERSION}; 
-      git checkout #{BALCMS_VERSION}-dev;
+    ` git checkout #{BRANCH_STABLE};
+      git merge #{BRANCH_DEV};
+      git checkout #{BRANCH_MASTER};
+      git merge #{BRANCH_STABLE}; 
+      git checkout #{BRANCH_DEV};
       git push origin --all;`
   end
   
