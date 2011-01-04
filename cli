@@ -74,8 +74,19 @@ class App
   attr_accessor :php_binary
   
   def initialize
+    # Alias MySqL
+    mysql_binary = `which mysql`.strip
+    zend_mysql_binary = `which /usr/local/zend/mysql/bin/mysql`.strip
+    if mysql_binary.empty? 
+      if !zend_mysql_binary.empty?
+        mysql_binary = zend_mysql_binary
+      else
+        mysql_binary = 'mysql' # reset for use in requirements check
+      end
+    end
+    
     # Check for Requirements
-    reqs = ['rm','sed','curl','chmod','git','php','httpd','mysql']
+    reqs = ['rm','sed','curl','chmod','git','php','httpd',mysql_binary]
     reqs.each do |req|
       has_req = `which #{req}`.strip
       if has_req.empty?
@@ -84,9 +95,9 @@ class App
     end
     
     # Discover PHP Binary
-    @php_binary = `which php5`.strip
-    if @php_binary.empty?
-      @php_binary = `which php`.strip
+    php_binary = `which php5`.strip
+    if php_binary.empty?
+      php_binary = `which php`.strip
     end
     
     # Check PHP Version
