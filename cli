@@ -1,0 +1,409 @@
+#!/usr/bin/env ruby 
+
+# == Name
+#   cli - BalCMS Command Line Interface
+#
+# == Synopsis 
+#   cli check-env
+#   cli birth
+#   cli init-commit
+#   cli init-new
+#   cli init-existing
+#   cli configure
+#   cli install
+#   cli permissions
+#   cli setup
+#   cli cron
+#
+#   cli add
+#   cli stable
+#   cli master
+#   cli upgrade
+#   cli update
+#   cli deploy
+#
+#   cli clean
+#   cli clean-config
+#   cli clean-styles
+#   cli clean-scripts
+#
+#   cli [options]
+#
+# == Examples
+#   cli check-env
+#     Checks to see that our environment is properly configured and will support a BalCMS installation.
+#
+#   cli birth
+#     Executes: init-new, configure, install, init-commit
+#
+#   cli init-commit
+#     Performs the initial commit (commits new and modified files during the installation to the git repo).
+#
+#   cli init-new
+#     Initialises the repository as a new installation. Only run this once.
+#
+#   TODO: finish this example section
+#
+# == Options
+#   -h, --help          Displays help message
+#   -v, --version       Display the version, then exit
+#   -q, --quiet         Output as little as possible, overrides verbose
+#   -V, --verbose       Verbose output
+#
+# == Author
+#   Benjamin Arthur Lupton
+#
+# == Copyright
+#   Copyright (c) 2008-2011 Benjamin Arthur Lupton.
+#   Licensed under the University of Illinois/NCSA Open Source License
+#   http://www.opensource.org/licenses/UoI-NCSA.php
+
+require 'optparse' 
+require 'rdoc/usage'
+require 'ostruct'
+require 'date'
+
+class App
+  BALCMS_VERSION = :'1.0.0'
+  MIN_PHP_VERSION = 5.3
+  MIN_GIT_VERSION = 1.6 # actually, only 1.5.3 is needed, but the comparison could get complicated
+  attr_accessor :php_binary
+  
+  def initialize
+    check_env
+  end
+  
+  # ===========================================================================
+  # Installers
+  
+  def check_env
+    # Check for Requirements
+    reqs = ['rm','sed','curl','chmod','git','php','httpd','mysql']
+    reqs.each do |req|
+      has_req = `which #{req}`.strip
+      if has_req.empty?
+        abort("BalCMS requires the following binary which is not installed: #{req}")
+      end
+    end
+    
+    # Discover PHP Binary
+    @php_binary = `which php5`.strip
+    if @php_binary.empty?
+      @php_binary = `which php`.strip
+    end
+    
+    # Check PHP Version
+    php_version = (`php --version`)[4..6]
+    if php_version.to_f < MIN_PHP_VERSION
+      abort("BalCMS requires at least PHP version #{MIN_PHP_VERSION}")
+    end
+    
+    # Check Git Version
+    git_version = (`git --version`)[12..14]
+    if git_version.to_f < MIN_GIT_VERSION
+      abort("BalCMS requires at least Git version #{MIN_GIT_VERSION}")
+    end
+    
+    # Check Git Configuration
+    git_user = `git config user.name`
+    git_email = `git config user.email`
+    if git_user.empty? or git_email.empty?
+      abort(:'You must configure your git installation first.')
+    end
+  end
+  
+  def birth
+    init_new
+    configure
+    install
+    init_commit
+  end
+  
+  def init_commit
+    puts \
+    ` git add -u;
+      git add \
+      	.gitignore \
+      	config.php \
+      	application/config/*.yml \
+      	application/data/database \
+      	application/data/fixtures/data.yml \
+      	application/data/schema/schema.yml \
+      	library ;
+      git commit -m "Welcome to BalCMS.";`
+  end
+  
+  def init_new
+    result = `git status`
+    is_git_repo = $?.to_i
+    if is_git_repo
+      abort('This repository has already been initialised. Refer to the readme file, perhaps you meant \'init_existing\' instead.')
+    end
+    
+  	puts \
+  	` git init;
+  	  git remote add balcms git://github.com/balupton/balcms.git;
+    	git fetch balcms;
+    	rm Makefile;
+    	git checkout -b #{BALCMS_VERSION}-balcms balcms/#{BALCMS_VERSION};
+    	git branch #{BALCMS_VERSION}-dev;
+    	git branch #{BALCMS_VERSION};
+    	git branch master;
+    	git checkout #{BALCMS_VERSION}-dev;
+    	sed '1,7d' .gitignore > .tmp; rm .gitignore; mv .tmp .gitignore
+    	git add .gitignore;
+    	git commit -m "Updated .gitignore for our application. Welcome.";`
+  end
+  
+  def init_existing
+    result = `git status`
+    is_git_repo = $?.to_i
+    unless is_git_repo
+      abort('This repository hasn\'t been initialised yet. Refer to the readme file, perhaps you meant \'init_new\' instead.')
+    end
+    
+    puts \
+    ` git remote add balcms git://github.com/balupton/balcms.git;
+    	git fetch balcms;
+    	git fetch origin;
+    	rm Makefile;
+    	git checkout -b #{BALCMS_VERSION}-balcms balcms/#{BALCMS_VERSION};
+    	git checkout -b #{BALCMS_VERSION}-dev origin/#{BALCMS_VERSION}-dev;
+    	git checkout -b #{BALCMS_VERSION} origin/#{BALCMS_VERSION};
+    	git checkout -b master origin/master;`
+  end
+  
+  # ===========================================================================
+  # Configurers
+  
+  def configure
+    puts \
+      `#{php_binary} ./scripts/configure`
+  end
+  
+  def install
+    puts \
+    ` #{php_binary} ./scripts/setup.php install`
+    
+	  # Fix permissions for non-writable submodule
+	  `cd common/SymfonyComponents/YAML; git reset --hard`
+	end
+  
+  def permissions
+    puts \
+    ` #{php_binary} ./scripts/setup.php permissions`
+	  
+	  # Fix permissions for non-writable submodule
+	  `cd common/SymfonyComponents/YAML; git reset --hard`
+  end
+  
+  def setup
+    puts \
+    ` #{php_binary} ./scripts/setup.php;`
+  end
+  
+  def cron
+    puts \
+    ` #{php_binary} ./scripts/cron.php;`
+  end
+  
+  # ===========================================================================
+  # Git Helpers
+  
+  def add
+    puts \
+    ` git add -u;`
+  end
+  
+  def stable
+    puts \
+    ` git checkout #{BALCMS_VERSION};`
+  end
+
+  def dev
+    puts \
+    ` git checkout #{BALCMS_VERSION}-dev;`
+  end
+
+  def master
+    puts \
+    ` git checkout master;`
+  end
+
+  def upgrade
+    puts \
+    ` git checkout #{BALCMS_VERSION}-balcms;
+      git pull balcms #{BALCMS_VERSION};
+      git checkout #{BALCMS_VERSION}-dev;
+      git merge #{BALCMS_VERSION}-balcms;`
+  end
+
+  def update
+    puts \
+    ` git pull;`
+    configure
+  end
+
+  def deploy
+    puts \
+    ` git checkout #{BALCMS_VERSION};
+      git merge #{BALCMS_VERSION}-dev;
+      git checkout master;
+      git merge #{BALCMS_VERSION}; 
+      git checkout #{BALCMS_VERSION}-dev;
+      git push origin --all;`
+  end
+  
+  # ===========================================================================
+  # Cleaners
+  
+  def clean
+    clean_config
+    clean_styles
+    clean_scripts
+  end
+  
+  def clean_config
+    puts \
+  	` rm -Rf \
+  	  	application/config/compiled/* \
+    		application/data/schema/compiled/* \
+    		application/data/schema/compiled/* \
+    		application/modules/*/config/compiled/*;`
+  end
+  
+  def clean_styles
+    puts \
+    `	rm -Rf \
+    		public/media/cache/styles/*;`
+  end
+  
+  def clean_scripts
+    puts \
+    `	rm -Rf \
+    		public/media/cache/scripts/*;`
+  end
+  
+end
+
+# ===========================================================================
+# Booter
+
+class Booter
+  VERSION = :'0.0.1'
+  
+  attr_reader :options
+
+  def initialize(arguments, stdin)
+    @arguments = arguments
+    @stdin = stdin
+    
+    # Set defaults
+    @options = OpenStruct.new
+    @options.verbose = false
+    @options.quiet = false
+    # TO DO - add additional defaults
+  end
+
+  # Parse options, check arguments, then process the command
+  def run
+        
+    if parsed_options? && arguments_valid? 
+      
+      puts "Start at #{DateTime.now}\n\n" if @options.verbose
+      
+      output_options if @options.verbose # [Optional]
+            
+      process_arguments            
+      process_command
+      
+      puts "\nFinished at #{DateTime.now}" if @options.verbose
+      
+    else
+      output_usage
+    end
+      
+  end
+  
+  protected
+  
+    def parsed_options?
+      
+      # Specify options
+      opts = OptionParser.new 
+      opts.on('-v', '--version')    { output_version ; exit 0 }
+      opts.on('-h', '--help')       { output_help }
+      opts.on('-V', '--verbose')    { @options.verbose = true }  
+      opts.on('-q', '--quiet')      { @options.quiet = true }
+      # TO DO - add additional options
+            
+      opts.parse!(@arguments) rescue return false
+      
+      process_options
+      true      
+    end
+
+    # Performs post-parse processing on options
+    def process_options
+      @options.verbose = false if @options.quiet
+    end
+    
+    def output_options
+      puts :"Options:\n"
+      
+      @options.marshal_dump.each do |name, val|        
+        puts "  #{name} = #{val}"
+      end
+    end
+
+    # True if required arguments were provided
+    def arguments_valid?
+      # TO DO - implement your real logic here
+      true if @arguments.length == 1 
+    end
+    
+    # Setup the arguments
+    def process_arguments
+      # TO DO - place in local vars, etc
+    end
+    
+    def output_help
+      output_version
+      RDoc::usage() #exits app
+    end
+    
+    def output_usage
+      RDoc::usage(:'usage') # gets usage from comments above
+    end
+    
+    def output_version
+      puts "#{File.basename(__FILE__)} version #{VERSION}"
+    end
+    
+    def process_command
+      # Create Application
+      app = App.new
+      
+      # Fetch + Execute
+      command = @arguments[0].gsub('-','_')
+      unless app.respond_to?(command)
+        abort("Unknown command: #{command}")
+      end
+      app.send(command)
+    end
+
+    def process_standard_input
+      input = @stdin.read      
+      # TO DO - process input
+      
+      # [Optional]
+      #@stdin.each do |line| 
+      #  # TO DO - process each line
+      #end
+    end
+end
+
+
+# Create Booter
+booter = Booter.new(ARGV, STDIN)
+booter.run

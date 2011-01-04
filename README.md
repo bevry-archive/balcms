@@ -21,13 +21,12 @@ BalCMS is different from other CMS's as we can extend it directly by just adding
 - Automatic and Dynamic Image Resizing and Compression
 
 
-
 ## Before you Start
 
 
 ### The License
 
-- BalCMS is licensed under the [New BSD License](https://github.com/balupton/balcms/raw/master/licenses/COPYING.txt).
+- This software uses the [University of Illinois/NCSA Open Source License](http://en.wikipedia.org/wiki/University_of_Illinois/NCSA_Open_Source_License) as [its license](https://github.com/balupton/balcms/raw/master/licenses/COPYING.txt). The license is a [permissive free software license](http://en.wikipedia.org/wiki/Permissive_free_software_licence) and is a combination of both the [New-BSD](http://en.wikipedia.org/wiki/BSD_licenses) and [MIT](http://en.wikipedia.org/wiki/MIT_License) licenses. It is [compatible](http://en.wikipedia.org/wiki/License_compatibility#GPL_compatibility) with the [GPL](http://en.wikipedia.org/wiki/Gpl) as well as [OSI](http://en.wikipedia.org/wiki/Open_Source_Initiative) [approved](http://en.wikipedia.org/wiki/Open-source_license#OSI_approved_licenses).
 
 
 ### Note on Command Line Dependence
@@ -41,7 +40,8 @@ There will never be a front end gui to replace the dependency on the command lin
 
 For Windows you will need to install:
 
-- cygwin (unix commands, e.g. curl, chmod, make) - [download](http://www.cygwin.com/setup.exe), [about](http://www.cygwin.com/).
+- cygwin (unix commands, e.g. curl, chmod, rm, sed) - [download](http://www.cygwin.com/setup.exe), [about](http://www.cygwin.com/).
+- ruby - [download](http://www.ruby-lang.org/en/downloads/), [about](http://www.ruby-lang.org).
 - git - [download](http://git-scm.com/download), [about](http://git-scm.com/).
 - zend server (apache, php 5.3, sqlite, mysql 5) - [download](http://www.zend.com/en/products/server-ce/downloads), [about](http://www.zend.com/en/products/server-ce/).
 
@@ -52,9 +52,11 @@ For Unix/Mac/Linux you will need to install:
 
 These installations will provide you with the following requirements:
 
+- rm
+- sed
 - curl
 - chmod
-- make
+- ruby
 - git
 - php 5.3 (5.2 still works, however we are moving in the 5.3 direction)
 - apache
@@ -64,18 +66,20 @@ These installations will provide you with the following requirements:
 
 ## Creating a New BalCMS Website
 
+0.	Firstly, we'll need to ensure that your environment is correctly configured. For this run `./cli check-env`. If it does not return any error messages, then you may proceed. If it does then please attend to the messages. If you get the message saying that your git installation is not configured, then the easiest way to configure it is to setup a new free account on [GitHub](https://github.com), create a new repository with them, follow their instructions on using and setting up the repository - once done your git installation will have been configured, so run `./cli check-env` again and make sure that there is nothing else it finds, if it doesn't find anything, then woohoo and we can now proceed to installing BalCMS.
+
 1.	Run the following commands:
 		
 		mkdir mywebsite
 		cd mywebsite
-		curl -OL http://github.com/balupton/balcms/raw/master/Makefile
-		make birth
+		curl -OL http://github.com/balupton/balcms/raw/master/cli
+		./cli birth
 
-	> Explanation: What we are doing here is creating our new website directory (folder), then fetching a Makefile. A Makefile is an index of instructions that we can run. Having this file, we can then run `make birth`. The `make birth` command is actually comprised of three other view important commands which are:
+	> Explanation: What we are doing here is creating our new website directory (folder), then fetching our application's [Command Line Interface](http://en.wikipedia.org/wiki/Command-line_interface). Having this file, we can then run `./cli birth`. The `./cli birth` command is actually comprised of three other view important commands which are:
 		
-	> - `make init-new` which initialises our local repository (as a new repository), and grabs the core of the CMS
-	> - `make configure` which fetches the CMS's dependencies and requirements and configures the directory structure
-	> - `make install` which installs the CMS's database, adjusts the permissions and runs any cron jobs.
+	> - `./cli init-new` which initialises our local repository (as a new repository), and grabs the core of the CMS
+	> - `./cli configure` which fetches the CMS's dependencies and requirements and configures the directory structure
+	> - `./cli install` which installs the CMS's database, adjusts the permissions and runs any cron jobs.
 		
 	> We will be using these commands and similar later on.
 
@@ -86,7 +90,7 @@ These installations will provide you with the following requirements:
 
 		git remote add origin {your git repos read/write url} ; make deploy
 	
-	> Explanation: The second command here `make deploy` will send our changes from our development branch to our stable branch, then from the stable branch to the `master` branch. Finally, it'll then send all those changes to our remote repository.
+	> Explanation: The second command here `./cli deploy` will send our changes from our development branch to our stable branch, then from the stable branch to the `master` branch. Finally, it'll then send all those changes to our remote repository.
 	
 	> We want to send our changes to the remote repository as that we can deploy to our remote server (where our website will actually be hosted and accessed). Other benefits are also in case our development environment crashes, we will have a remote backup. The last benefit and perhaps the best one, is that if we are working with other people, it allows us to all collaborate together seamlessly.
 
@@ -138,6 +142,8 @@ So let's take a look at the structure:
 					
 			default/ - Contains our Default/Base Modules (used for Error Handling)
 		
+	cli - BalCMS's Command Line Interface
+	
 	common/ - Used to contain our submodules/requirements/dependencies used by BalCMS (e.g. zend framework)
 	
 	config.php
@@ -145,8 +151,6 @@ So let's take a look at the structure:
 	il8n/ - Contains our Localisation/Language files.
 	
 	index.php
-	
-	Makefile
 	
 	public/
 		images/
@@ -174,7 +178,7 @@ So let's take a look at the structure:
 	
 	robots.txt - What to tell Search Engines. Read up on google.
 	
-	scripts/ - Contains scripts used by our Makefile to perform specific actions
+	scripts/ - Contains scripts used by our CLI to perform specific actions
 	
 	tests/ - Unit tests for our application.
 
@@ -206,7 +210,7 @@ BalCMS has configuration files in the following locations:
 
 The files that you will be interested in are mainly `config.php` and `application.yml`, sometimes `nav.yml`. Unless you plan on extending BalCMS to add custom functionality, you will not ever need to touch the other configuration files.
 
-The documentation files either include inline documentation (docs inside them) or they are self explanatory. After you have modified your configuration files, you will want to run `make clean-config` to ensure that the updated configuration is applied correctly - we do try to autodetect, but pedanticness can come in handy sometimes.
+The documentation files either include inline documentation (docs inside them) or they are self explanatory. After you have modified your configuration files, you will want to run `./cli clean-config` to ensure that the updated configuration is applied correctly - we do try to autodetect, but pedanticness can come in handy sometimes.
 
 
 ## Committing your Changes
@@ -236,12 +240,12 @@ Setting up the live server can be done by either of the following two ways.
 	
 	3. This directory should be empty as we are doing a clean install (if it is not empty, back it up, and empty it). Now that it is empty, we want to run the following commands:
 	
-			curl -OL http://github.com/balupton/balcms/raw/master/Makefile
+			curl -OL http://github.com/balupton/balcms/raw/master/cli
 			git init
 			git remote add origin {your git repos read/write url}
-			make init-existing; make configure; make install
+			./cli init-existing; ./cli configure; ./cli install
 
-		> Explanation: These commands should look quite similar to our local installation commands, although there are some differences. We start off by fetching the Makefile, but then we call `git init`, this tells our environment to treat the current directory as a git repository. We then proceed to associate our directory with the remote repository. Finally we run the commands `make init-existing; make configure; make install`. This is the same as before, but this time we run `make init-existing`, instead of `make init-new` - as we now have an existing git repository that we are working with (so we just fetch it), whereas before we had to create the git repository from scratch (it's branches, structure, etc).
+		> Explanation: These commands should look quite similar to our local installation commands, although there are some differences. We start off by fetching our CLI just like usual, although now we then call `git init`, this tells our environment to treat the current directory as a git repository. We then proceed to associate our directory with the remote repository. Finally we run the commands `./cli init-existing; ./cli configure; ./cli install`. This is the same as before, but this time we run `./cli init-existing`, instead of `./cli init-new` - as we now have an existing git repository that we are working with (so we just fetch it), whereas before we had to create the git repository from scratch (it's branches, structure, etc).
 
 	4. You're all done now, you're website is now live.
 
@@ -255,24 +259,24 @@ Setting up the live server can be done by either of the following two ways.
 
 *Note: Before you deploy to the live site, you will need to have added a production environment to your `config.php` file, and set up your database for the production environment in the `application/config/application.yml` file.*
 
-1.	Once we are happy with our local copy and we want to deploy it to the live site, we just have to run the already familiar command `make deploy` in our websites directory.
+1.	Once we are happy with our local copy and we want to deploy it to the live site, we just have to run the already familiar command `./cli deploy` in our websites directory.
 		
 2.	Once we have deployed our changes to our remote git repository, we will then want to pull those changes onto our live server. This depends on the option we chose.
 
 	- Using the fallback option (3rd Party System): With this option, deployment from our remote git repository to our live server may either happen automatically, or we may need to login to their system and manually deploy the changes and wait a very long time.
 	
-	- Using the recommended option (SSH+Git): We will want to ssh into our web server and cd into our live sites directory (as we did when we setup the git repository). Once there will want to simply run the command `make update`. That will fetch all the recent changes, and ensure that our configuration is up-to-date.
+	- Using the recommended option (SSH+Git): We will want to ssh into our web server and cd into our live sites directory (as we did when we setup the git repository). Once there will want to simply run the command `./cli update`. That will fetch all the recent changes, and ensure that our configuration is up-to-date.
 
 
 ## Upgrading your BalCMS Version
 
-1.	To upgrade your application to the latest BalCMS version, you'll just need to run `make upgrade` in your application's directory.
+1.	To upgrade your application to the latest BalCMS version, you'll just need to run `./cli upgrade` in your application's directory.
 
 	>	Explanation: What this will do is fetch the latest BalCMS version into the balcms branch, and merge it into our dev branch.
 	
 2.	If you have any conflicts you can use `git mergetool` to sort them out.
 
-3.	Once all the conflicts are resolved, and the upgrade went successfully you'll want to run `make configure` to update any submodules/dependencies/requirements that we use.
+3.	Once all the conflicts are resolved, and the upgrade went successfully you'll want to run `./cli configure` to update any submodules/dependencies/requirements that we use.
 
 
 ## Known Issues
@@ -281,9 +285,16 @@ Setting up the live server can be done by either of the following two ways.
 - Media uploads is broken. - It's undergoing an update and is being fixed.
 
 
-## Thanks!
+## Thank You & Contributing
 
-Thanks for choosing BalCMS for your next commercial or even open-source project. If you have any feedback at all, feel free to post it on our [support forums](http://getsatisfaction.com/balupton/products/balupton_balcms) and someone will give you the support that your after :-)
+Firstly, thank you for choosing this software for your next commercial or even open-source project.
+
+If you'd like to give some value back to those behind this software, just as they have given value to you, you may make contributes in the following ways:
+
+	- Provide financial support - every donation helps, no matter it's size! You may do this through our [online donation form located here](http://balupton.com/donate).
+	- Providing any feedback (be it suggestions, ideas, questions, problems, whatever) into our [support forums](http://getsatisfaction.com/balupton/products/balupton_balcms). Every piece of feedback allows us to gain better focus on what needs to be done as well as allowing us to make this software even better!
+	- Spreading the word about this software. The more publicilty, the better!
+	- Providing your own modifications of this software to us without restriction such that we could and perhaps even may implement your modifications in future versions!
 
 Happy Coding :-)
 - [Benjamin "balupton" Lupton](http://www.balupton.com)
