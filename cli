@@ -69,18 +69,11 @@ class App
   BRANCH_DEV = :'v1.0.0-dev'
   BRANCH_BALCMS = :'v1.0.0-balcms'
   BRANCH_MASTER = :'master'
-  MIN_PHP_VERSION = 5.3
+  MIN_PHP_VERSION = 5.2
   MIN_GIT_VERSION = 1.6 # actually, only 1.5.3 is needed, but the comparison could get complicated
   attr_accessor :php_binary
   
   def initialize
-    check_env
-  end
-  
-  # ===========================================================================
-  # Installers
-  
-  def check_env
     # Check for Requirements
     reqs = ['rm','sed','curl','chmod','git','php','httpd','mysql']
     reqs.each do |req|
@@ -114,6 +107,14 @@ class App
     if git_user.empty? or git_email.empty?
       abort(:'You must configure your git installation first.')
     end
+  end
+  
+  # ===========================================================================
+  # Installers
+  
+  def check_env
+    # If we have made it here, then all is good as the configuration is checked on init
+    puts 'Your environment is correctly configured.'
   end
   
   def birth
