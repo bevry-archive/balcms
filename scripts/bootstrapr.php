@@ -273,8 +273,9 @@ if ( !class_exists('Bootstrapr') ) {
 		 */
 		public function ensurePath ( $path ) {
 			system('mkdir -p '.dirname($path));
-			touch($path);
-			// flush(); - will cause headers_sent to be true, and cause the application to fail
+			if ( strstr(basename($path),'.') && !touch($path) ) {
+				throw new Exception('Could not touch the file: ['.$path.']');
+			}
 			return true;
 		}
 		
@@ -513,7 +514,6 @@ if ( !class_exists('Bootstrapr') ) {
 				if ( !defined($key) )
 					define($key,$value);
 			}
-			
 		}
 	
 		/**
