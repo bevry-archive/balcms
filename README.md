@@ -291,10 +291,10 @@ Firstly, thank you for choosing this software for your next commercial or even o
 
 If you'd like to give some value back to those behind this software, just as they have given value to you, you may make contributes in the following ways:
 
-	- Provide financial support - every donation helps, no matter it's size! You may do this through our [online donation form located here](http://balupton.com/donate).
-	- Providing any feedback (be it suggestions, ideas, questions, problems, whatever) into our [support forums](http://getsatisfaction.com/balupton/products/balupton_balcms). Every piece of feedback allows us to gain better focus on what needs to be done as well as allowing us to make this software even better!
-	- Spreading the word about this software. The more publicilty, the better!
-	- Providing your own modifications of this software to us without restriction such that we could and perhaps even may implement your modifications in future versions!
+- Provide financial support - every donation helps, no matter it's size! You may do this through our [online donation form located here](http://balupton.com/donate).
+- Providing any feedback (be it suggestions, ideas, questions, problems, whatever) into our [support forums](http://getsatisfaction.com/balupton/products/balupton_balcms). Every piece of feedback allows us to gain better focus on what needs to be done as well as allowing us to make this software even better!
+- Spreading the word about this software. The more publicilty, the better!
+- Providing your own modifications of this software to us without restriction such that we could and perhaps even may implement your modifications in future versions!
 
 Happy Coding :-)
 - [Benjamin "balupton" Lupton](http://www.balupton.com)

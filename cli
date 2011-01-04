@@ -169,7 +169,7 @@ class App
     	sed '1,7d' .gitignore > .tmp; rm .gitignore; mv .tmp .gitignore;
     	git add .gitignore;
     	git commit -m "Updated .gitignore for our application. Welcome.";
-    	chmod -R +xrw .;` # ensure we can run our scripts, permissions are adjusted correctly in ./cli install
+    	chmod -R a+xrw .;` # ensure we can run our scripts, permissions are adjusted correctly in ./cli install
   end
   
   def init_existing
@@ -188,7 +188,7 @@ class App
     	git checkout -b #{BRANCH_DEV} origin/#{BRANCH_DEV};
     	git checkout -b #{BRANCH_STABLE} origin/#{BRANCH_STABLE};
     	git checkout -b #{BRANCH_MASTER} origin/#{BRANCH_MASTER};
-    	chmod -R +xrw .;` # ensure we can run our scripts, permissions are adjusted correctly in ./cli install
+    	chmod -R a+xrw .;` # ensure we can run our scripts, permissions are adjusted correctly in ./cli install
   end
   
   # ===========================================================================
