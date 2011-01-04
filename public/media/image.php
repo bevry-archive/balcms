@@ -1,24 +1,75 @@
 <?php
-# Init
-$bootstrap = $run = false;
-require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'index.php');
+# Load
+if ( empty($GLOBALS['Application']) ) {
+	# Bootstrap
+	require_once(
+		implode(
+			DIRECTORY_SEPARATOR,
+			array(
+				dirname(__FILE__),
+				'..',
+				'..',
+				'scripts',
+				'bootstrapr.php'
+			)
+		)
+	);
+	$Bootstrapr = Bootstrapr::getInstance();
+}
+else {
+	$Bootstrapr = Bootstrapr::getInstance();
+}
+
+# Bootstrap
+$Bootstrapr->bootstrap('zend-application');
 $Application->bootstrap('balphp');
+$Application->bootstrap('config');
 
 # Requires
-require_once (BALPHP_PATH . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'functions' . DIRECTORY_SEPARATOR . '_image.funcs.php');
-require_once (BALPHP_PATH . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'functions' . DIRECTORY_SEPARATOR . '_files.funcs.php');
+require_once(implode(
+	DIRECTORY_SEPARATOR,
+	array(
+		BALPHP_PATH,
+		'core',
+		'functions',
+		'_image.funcs.php'
+	)
+));
+require_once(implode(
+	DIRECTORY_SEPARATOR,
+	array(
+		BALPHP_PATH,
+		'core',
+		'functions',
+		'_files.funcs.php'
+	)
+));
 
 # Fetch Paths
-$media_path		= Bal_App::getConfig('media_path');
-$media_url		= Bal_App::getConfig('media_url');
-$images_path	= Bal_App::getConfig('images_path');
-$images_url		= Bal_App::getConfig('images_url');
+$media_path			= Bal_App::getConfig('media_path');
+$media_url			= Bal_App::getConfig('media_url');
+$images_path		= Bal_App::getConfig('media_images_path');
+$images_url			= Bal_App::getConfig('media_images_url');
+$default_quality	= Bal_App::getConfig('media.resize.default.quality', 90);
+$resize_supported	= Bal_App::getConfig('media.resize.supported', array());
 
 # Fetch
 $image_location = ltrim($_GET['image'], DIRECTORY_SEPARATOR);
 $height = intval(!empty($_GET['height']) ? $_GET['height'] : (!empty($_GET['h']) ? $_GET['h'] : 0));
 $width = intval(!empty($_GET['width']) ? $_GET['width'] : (!empty($_GET['w']) ? $_GET['w'] : 0));
-$quality = intval(!empty($_GET['quality']) ? $_GET['quality'] : (!empty($_GET['q']) ? $_GET['q'] : 90));
+$quality = intval(!empty($_GET['quality']) ? $_GET['quality'] : (!empty($_GET['q']) ? $_GET['q'] : $default_quality));
+
+# Check
+function check_resize_support ( $list, $value ) {
+	return !$value || in_array($value,$list);
+}
+if ( 
+		!check_resize_support($resize_supported['height'], $height)
+	||	!check_resize_support($resize_supported['width'], $width)
+	||	!check_resize_support($resize_supported['quality'], $quality)
+) {
+	throw new Exception('An unsupported combination of width, height and quality was specified. Please adjust your configuration.');
+}
 
 # Prepare
 $image_path = realpath($media_path . DIRECTORY_SEPARATOR . $image_location); // we hope that the image path is good

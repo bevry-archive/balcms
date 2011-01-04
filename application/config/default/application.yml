@@ -71,7 +71,18 @@ default: &default
         transport:
             smtp:
                 host: "localhost"
-        
+    
+    media:
+        resize:
+            default:
+                quality: 90
+            supported:
+                width:
+                height:
+                    - 60
+                quality:
+                    - 90
+    
     payment:
         gateway: "paypal"
         default:

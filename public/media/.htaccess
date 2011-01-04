@@ -1,7 +1,7 @@
-Options -Indexes
+Options +FollowSymlinks -Indexes
 RewriteEngine On
 
 # Image which includes a query string pass to the image.php file
 RewriteCond %{REQUEST_FILENAME} \.(jpe?g|png|gif)$ [NC]
 RewriteCond %{QUERY_STRING} ^.
-RewriteRule ^(.+)$ image.php?image=$1 [L,QSA]
+RewriteRule ^(.+)$ ./image.php?image=$1 [L,QSA]
