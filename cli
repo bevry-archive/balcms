@@ -95,9 +95,9 @@ class App
     end
     
     # Discover PHP Binary
-    php_binary = `which php5`.strip
-    if php_binary.empty?
-      php_binary = `which php`.strip
+    @php_binary = `which php5`.strip
+    if @php_binary.empty?
+      @php_binary = `which php`.strip
     end
     
     # Check PHP Version
@@ -194,12 +194,12 @@ class App
   
   def configure
     puts \
-      `#{php_binary} ./scripts/configure`
+    `#{php_binary} ./scripts/configure`
   end
   
   def install
     puts \
-    ` #{php_binary} ./scripts/setup.php install`
+    `#{php_binary} ./scripts/setup.php install`
     
 	  # Fix permissions for non-writable submodule
 	  `cd common/SymfonyComponents/YAML; git reset --hard`
