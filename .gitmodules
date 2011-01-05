@@ -22,9 +22,6 @@
 [submodule "common/htmlpurifier-v4.2.0-lib"]
 	path = common/htmlpurifier-v4.2.0-lib
 	url = http://github.com/balupton/HTMLPurifier.git
-[submodule "common/zend-v1.10.8-bal-lib"]
-	path = common/zend-v1.10.8-bal-lib
-	url = http://github.com/balupton/zend-framework-v1.git
 [submodule "common/scaffold"]
 	path = common/scaffold
 	url = http://github.com/balupton/Scaffold.git

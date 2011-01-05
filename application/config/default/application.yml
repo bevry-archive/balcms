@@ -136,7 +136,7 @@ default: &default
             company: false
         
     areaThemes:
-        default: titan
+        default: albeo
         back: balcms
         front: albeo
     
@@ -297,7 +297,7 @@ default_development: &default_development
     log:
         store: true
     editor:
-        code: aloha
+        code: tinymce
     compiler:
     	script:
     		code: 'closure-compiler'
