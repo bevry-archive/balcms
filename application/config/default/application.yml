@@ -7,17 +7,17 @@ default: &default
         upload_max_filesize: 8M
         display_startup_errors: 0
         display_errors: 0
-    
+
     bootstrap:
         path: "<?=APPLICATION_PATH?>/Bootstrap.php"
         class: Bootstrap
-    
+
     resources:
         frontController:
             moduleDirectory: "<?=MODULES_PATH?>"
         layout:
             layoutPath: "<?=APPLICATION_PATH?>/layouts/scripts"
-        
+
     data:
         connection_string: "sqlite:///<?=DATABASES_PATH?>/<?=APPLICATION_ENV?>.db"
         cache_dsn: "sqlite:///<?=CACHE_PATH?>/<?=APPLICATION_ENV?>.db"
@@ -30,7 +30,7 @@ default: &default
         extensions_path: "<?=DOCTRINE_EXTENSIONS_PATH?>"
         yaml_schema_path: "<?=DATA_SCHEMA_PATH?>"
         yaml_schema_file_path: "<?=DATA_SCHEMA_COMPILED_FILE_PATH?>"
-        yaml_schema_includes:  
+        yaml_schema_includes:
             - "<?=DATA_SCHEMA_PATH?>/schema.yml"
             - "<?=MODELS_PATH?>/Bal/Schema/Invoice.yml"
             - "<?=MODELS_PATH?>/Bal/Schema/File.yml"
@@ -54,12 +54,12 @@ default: &default
             drivers:
                 - "mysql"
                 - "sqlite"
-    
+
     locale:
         locale: "en_AU"
         timezone: "Australia/Perth"
         currency: "AUD"
-    
+
     mail:
         send_email: true
         from:
@@ -71,7 +71,7 @@ default: &default
         transport:
             smtp:
                 host: "localhost"
-    
+
     media:
         resize:
             default:
@@ -82,7 +82,7 @@ default: &default
                     - 60
                 quality:
                     - 90
-    
+
     payment:
         gateway: "paypal"
         default:
@@ -106,27 +106,27 @@ default: &default
             title: "Site Admin's Name"
             email: ""
             website: ""
-            
+
     error:
         friendly: true
         throw: false
         template: error
-        
+
     setup:
         secret: "secret"
         salt: "salt"
-        
+
     auth:
         remember: "+2 weeks"
-        
+
     log:
         store: true
         request: true
-        
+
     paging:
         items: 15 # how many items should be displayed on a page
         chunk: 5 # how many page numbers should be displayed
-    
+
     services:
         analytics:
             code: false
@@ -134,12 +134,12 @@ default: &default
             code: false
         gsfn:
             company: false
-        
+
     areaThemes:
         default: albeo
         back: balcms
         front: albeo
-    
+
     routing:
         defaults:
             routeTable: Route
@@ -160,7 +160,7 @@ default: &default
             event:
                 controller: front
                 action: event-page
-                
+
     widgets:
         viewpath: widgets
         widget:
@@ -184,13 +184,13 @@ default: &default
                 helper: content
             gallery:
                 helper: gallery
-    
+
     content:
         cache: true # should we use the rendered content cache?
-    
+
     editor:
-        code: tinymce
-    
+        code: tinymce # supported values include: tinymce, aloha, bespin
+
     hours_in_work_day: 8
     invoice:
         tax_rate: 0.10
@@ -203,14 +203,14 @@ default: &default
             state: "Your Company's State"
             country: "Your Company's Country"
             postcode: "Your Company's Postcode"
-    
+
     compiler:
     	style:
     		code: 'scaffold'
     	script:
     		code: 'closure-webservice'
     		path: "<?=CLOSURE_COMPILER_PATH?>"
-    	
+
         csscaffold:
             config:
                 system: "<?=CSSCAFFOLD_COMPILER_PATH?>/"
@@ -220,7 +220,7 @@ default: &default
                 error_threshold: 1
                 gzip_compression: false
             options:
-            	
+
         scaffold:
             config:
                 system: "<?=SCAFFOLD_PATH?>/"
@@ -301,4 +301,4 @@ default_development: &default_development
     compiler:
     	script:
     		code: 'closure-compiler'
-    	
+
