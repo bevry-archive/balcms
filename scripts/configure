@@ -2,14 +2,14 @@
 <?php
 
 class Cli {
-	
+
 	/**
 	 * Our extreme base configuration
 	 */
 	public function prepare ( ) {
 		# Prepare
 		$root_path = realpath(dirname(__FILE__).'/..');
-		
+
 		# Define Default Files
 		$files = array(
 			'config.default.php' => 'config.php',
@@ -20,7 +20,7 @@ class Cli {
 			'application/data/fixtures/data.default.yml' => 'application/data/fixtures/data.yml',
 			'application/data/schema/schema.default.yml' => 'application/data/schema/schema.yml',
 		);
-		
+
 		# Install Default Files
 		echo "\nInstalling Default Configurations...\n";
 		foreach ( $files as $source => $destination ) {
@@ -29,34 +29,34 @@ class Cli {
 				copy($root_path.'/'.$source, $root_path.'/'.$destination);
 			}
 		}
-		
+
 		# Prepare
 		require(dirname(__FILE__).'/bootstrapr.php');
 	}
-	
+
 	/**
 	 * Run our Configuration
 	 */
 	public function run ( ) {
 		# Say Hello
 		$this->welcome();
-		
+
 		# Prepare
 		$this->prepare();
-		
+
 		# Install Core Configuration
 		$this->installCore();
-		
+
 		# Install Base Configuration
 		$this->installBase();
-		
+
 		# Install Advanced Configuration
 		$this->installAdvanced();
-		
+
 		# Say Bye
 		$this->goodbye();
 	}
-	
+
 	/**
 	 * Display a nice Welcome Message
 	 */
@@ -64,7 +64,7 @@ class Cli {
 		# Hi
 		echo "Welcome to the BalCMS Installer.\n";
 	}
-	
+
 	/**
 	 * Display a nice Goodbye Message
 	 */
@@ -73,7 +73,7 @@ class Cli {
 		echo "Your BalCMS Installation is Now Configured.\n";
 		// system("open ${root_url}${base_url}");
 	}
-	
+
 	/**
 	 * Perform the Core Installation
 	 */
@@ -81,30 +81,30 @@ class Cli {
 		# Prepare
 		$Bootstrapr = Bootstrapr::getInstance();
 		$Bootstrapr->bootstrap('environment');
-		
+
 		# --------------------------
-		
+
 		# Common Path
 		if ( !defined('COMMON_PATH') ) {
 			# Common Path
 			echo "Error: You have not specified a common path... This should have been set already..."."\n";
 			exit;
 		}
-		
+
 		# Adjust Common Path
 		if ( !is_dir(COMMON_PATH) && !mkdir(COMMON_PATH) ) {
 			echo "Error: Could not read the common directory: [".COMMON_PATH."]";
 			exit;
 		}
-		
+
 		# ----------------
-		
+
 		# Install Submodules
 		echo "\nInstalling Submodules...\n";
 		`git submodule init; git submodule update; git submodule foreach 'git submodule init; git submodule update;'`;
-		
+
 		# --------------------------
-		
+
 		# Define our Core Resources
 		$resources = array(
 			array(
@@ -114,18 +114,18 @@ class Cli {
 				'vcs'			=> 'git'
 			)
 		);
-		
+
 		# --------------------------
-		
+
 		# Install our Core Resources
 		$this->installResources($resources, 'Installing Core Resources...');
-		
+
 		# --------------------------
-		
+
 		# Return true
 		return true;
 	}
-	
+
 	/**
 	 * Perform the Base Installation
 	 */
@@ -133,23 +133,23 @@ class Cli {
 		# Prepare
 		$Bootstrapr = Bootstrapr::getInstance();
 		$Bootstrapr->bootstrap('configuration');
-		
+
 		# --------------------------
-		
+
 		# Detect BALPHP_ROOT_PATH
 		if ( !defined('BALPHP_ROOT_PATH') ) {
 			echo "Error: BALPHP_ROOT_PATH is undefined... Configuration must not have been loaded correctly...";
 			exit;
 		}
-		
+
 		# Ensure Library Path
 		if ( !is_dir(LIBRARY_PATH) && !mkdir(LIBRARY_PATH) ) {
 			echo "Error: Could not read the library directory: [".LIBRARY_PATH."]";
 			exit;
 		}
-		
+
 		# --------------------------
-		
+
 		# Define our Base Resources
 		$resources = array(
 			array(
@@ -198,12 +198,12 @@ class Cli {
 			array(
 				'title'			=> 'Zend Framework',
 				'source'		=> 'http://github.com/balupton/Zend-Framework-Mirror.git',
-				'destination'	=> ZEND_PATH,
+				'destination'	=> ZEND_ROOT_PATH,
 				'vcs'			=> 'git',
 				'branch'		=> 'v1.11.2',
 				'symlinks'		=> array(
 					array(
-						'source'		=> ZEND_PATH.'/library/Zend',
+						'source'		=> ZEND_PATH.'/Zend',
 						'destination'	=> LIBRARY_PATH.'/Zend'
 					)
 				)
@@ -216,7 +216,7 @@ class Cli {
 				'submodules'	=> true
 			)
 		);
-		
+
 		# Define our Base Symlinks
 		$symlinks = array(
 			array(
@@ -225,30 +225,30 @@ class Cli {
 				'destination'	=> APPLICATION_ROOT_PATH.'/application/models/Bal'
 			)
 		);
-		
+
 		# --------------------------
-		
+
 		# Install our Base Resources
 		$this->installResources($resources, 'Installing Base Resources...');
-		
+
 		# Install our Base Symlinks
 		$this->installSymlinks($symlinks, 'Installing Base Symlinks...');
-		
+
 		# --------------------------
-		
+
 		# Return true
 		return true;
 	}
-	
+
 	/**
 	 * Perform the Advanced Installation
 	 */
 	public function installAdvanced ( ) {
 		# Prepare
 		$APPLICATION_ROOT_PATH = APPLICATION_ROOT_PATH;
-		
+
 		# --------------------------
-		
+
 		# Define our Advanced Resources
 		$resources = array(
 			array(
@@ -278,18 +278,18 @@ class Cli {
 				'vcs'			=> 'git'
 			)
 		);
-		
+
 		# --------------------------
-		
+
 		# Install our Advanced Resources
 		$this->installResources($resources, 'Installing Advanced Resources...');
-		
+
 		# --------------------------
-		
+
 		# Return true
 		return true;
 	}
-	
+
 	/**
 	 * Install a series of Symlinks
 	 * @param array $symlinks
@@ -302,7 +302,12 @@ class Cli {
 			$title = $source = $destination = null;
 			extract($symlink);
 			# Handle Existing File
-			`mkdir -p $destination`;
+			$is_file = strstr(basename($destination),'.');
+			$dir = $is_file ? dirname($destination) : $destination;
+			if ( !is_dir($dir) ) {
+				`mkdir -p $dir`;
+			}
+			# Remove, File, Symlink, Directory - symlinks pass on is_file, but fail on rmdir, they need unlink
 			@unlink($destination);
 			@rmdir($destination);
 			# Handle Symlink
@@ -310,7 +315,7 @@ class Cli {
 			`ln -s ${source} ${destination}`;
 		}
 	}
-	
+
 	/**
 	 * Install a series of Resources
 	 * @param array $resources
@@ -320,7 +325,7 @@ class Cli {
 		# Prepare
 		$APPLICATION_ROOT_PATH = APPLICATION_ROOT_PATH;
 		$symlinksToInstall = array();
-		
+
 		# Setup Resources
 		echo "\n$message\n";
 		foreach ( $resources as $resource ) {
@@ -328,27 +333,27 @@ class Cli {
 			$branch = 'master';
 			$symlinks = array();
 			extract($resource);
-			
+
 			# Ensure
 			if ( empty($branch) ) $branch = 'master';
-			
+
 			# Check
 			if ( is_file($destination) ) {
 				unlink($destination);
 			}
-		
+
 			# Prepare
 			$destinationRelative = str_replace($APPLICATION_ROOT_PATH.'/', '', $destination);
 			if ( strstr($destination, APPLICATION_ROOT_PATH) ) {
 				// We are installing within our application
 				$inside = true;
 			}
-			
+
 			# Detect VCS
 			if ( !$vcs ) {
 				$vcs = strstr($command, 'git') ? 'git' : 'svn';
 			}
-			
+
 			# Detect Command
 			if ( !$command ) {
 				# Detect Command
@@ -358,7 +363,7 @@ class Cli {
 						$submodule = true;
 					}
 				}
-				
+
 				# Apply Command
 				if ( $vcs === 'git' ) {
 					if ( $submodule ) {
@@ -372,12 +377,12 @@ class Cli {
 					$command = 'git svn export';
 				}
 			}
-			
+
 			# Apply
 			if ( !is_dir($destination) ) {
 				# Create
 				echo "\nInstalling the Resource [${title}] to [${destination}].\n";
-				
+
 				# Fetch
 				`cd ${APPLICATION_ROOT_PATH} ; ${command} ${source} ${destinationRelative}`;
 			}
@@ -385,36 +390,36 @@ class Cli {
 				# Exists
 				echo "\nThe Resource [${title}] is already installed at [${destination}].\n";
 			}
-			
+
 			# Ensure Correct Branch
 			if ( $vcs === 'git' ) {
 				`cd ${destination}; git reset --hard; git branch ${branch}-old; git checkout ${branch}-old; git branch -D ${branch}; git checkout -b ${branch} origin/${branch}; git checkout ${branch}; git reset --hard; git branch -D ${branch}-old; git pull origin ${branch}; cd ${APPLICATION_ROOT_PATH}`;
 			}
-			
+
 			# Load Submodules
 			if ( $submodules ) {
 				`cd ${destination}; git submodule init; git submodule update`;
 			}
-			
+
 			# Add Submodule
 			echo "Installing the Resource's Submodules.\n";
 			`cd ${APPLICATION_ROOT_PATH}; git add ${destinationRelative}`;
-			
+
 			# Symlinks
 			foreach ( $symlinks as $symlink ) {
 				if ( empty($symlink['title']) ) $symlink['title'] = $title;
 				$symlinksToInstall[] = $symlink;
 			}
 		}
-		
+
 		# Install Symlinks
 		if ( count($symlinksToInstall) )
 			$this->installSymlinks($symlinksToInstall, $symlinksMessage);
-			
+
 		# Done
 		echo "\n";
 	}
-	
+
 }
 
 $Cli = new Cli();

@@ -28,3 +28,6 @@
 [submodule "common/SymfonyComponents/YAML"]
 	path = common/SymfonyComponents/YAML
 	url = http://github.com/fabpot/yaml.git
+[submodule "common/zend-v1.11.2"]
+	path = common/zend-v1.11.2
+	url = http://github.com/balupton/Zend-Framework-Mirror.git

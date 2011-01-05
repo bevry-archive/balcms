@@ -47,8 +47,10 @@ default: &default
         <?=COMMON_PATH?>/doctrine-v1.2.1-bal/lib
     DOCTRINE_EXTENSIONS_PATH: >
         <?=COMMON_PATH?>/doctrine-extensions
+    ZEND_ROOT_PATH: >
+        <?=COMMON_PATH?>/zend-v1.11.2
     ZEND_PATH: >
-        <?=COMMON_PATH?>/zend-v1.10.8-bal-lib
+        <?=COMMON_PATH?>/zend-v1.11.2/library
     BALPHP_ROOT_PATH: >
         <?=COMMON_PATH?>/balphp-v1.0
     BALPHP_PATH: >
