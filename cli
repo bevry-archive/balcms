@@ -119,6 +119,14 @@ class App
 	attr_accessor :php_binary
 
 	def initialize
+		perform_checks
+	end
+
+	def perform_checks
+		if ( File.exist?('.cli-ignore-checks') )
+			return
+		end
+
 		# Alias MySqL
 		mysql_binary = `which mysql`.strip
 		zend_mysql_binary = `which /usr/local/zend/mysql/bin/mysql`.strip

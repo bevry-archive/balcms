@@ -1,4 +1,4 @@
-# == remove below lines in your installation == # 
+# == remove below lines in your installation == #
 config.php
 application/config/*.yml
 application/data/fixtures/data.yml
@@ -6,6 +6,7 @@ application/data/schema/schema.yml
 # == remove above lines in your installation == #
 
 # Standard Ignores
+.cli-ignore-checks
 application/data/database/*.db
 application/data/dump/*
 application/data/migrations
