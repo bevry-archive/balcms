@@ -154,7 +154,7 @@ class App
 		end
 
 		# Check PHP Version
-		php_version = (`php --version`)[4..6]
+		php_version = (`#{@php_binary} --version`)[4..6]
 		if php_version.to_f < MIN_PHP_VERSION
 		  abort("BalCMS requires at least PHP version #{MIN_PHP_VERSION}")
 		end
@@ -263,14 +263,14 @@ class App
 		clean_config
 
 		puts \
-		`#{php_binary} ./scripts/configure`
+		`#{@php_binary} ./scripts/configure`
 	end
 
 	def install
 		clean_config
 
 		puts \
-		`#{php_binary} ./scripts/setup.php install`
+		`#{@php_binary} ./scripts/setup.php install`
 
 		permission_fix
 	end
@@ -279,14 +279,14 @@ class App
 		clean_config
 
 		puts \
-		` #{php_binary} ./scripts/setup.php permissions`
+		` #{@php_binary} ./scripts/setup.php permissions`
 
 		permission_fix
 	end
 
 	def setup
 		puts \
-		` #{php_binary} ./scripts/setup.php;`
+		` #{@php_binary} ./scripts/setup.php;`
 	end
 
 	def cron
