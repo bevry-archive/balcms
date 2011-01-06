@@ -64,6 +64,50 @@ require 'rdoc/usage'
 require 'ostruct'
 require 'date'
 
+class String
+	def between(str1,str2)
+		start = self.index(str1) + str1.length
+		finish = self.index(str2)
+		between = self[start..finish-1]
+		return between
+	end
+	def between_replace(str1,str2,replace)
+		start = self.index(str1) + str1.length
+		finish = self.index(str2)
+		p1 = self[0..start-1]
+		p2 = self[finish..self.length]
+		self.replace(p1 + replace + p2)
+		return self
+	end
+	def between_gsub(str1,str2,pattern,replace)
+		start = self.index(str1) + str1.length
+		finish = self.index(str2)
+		p1 = self[0..start-1]
+		p2 = self[finish..self.length]
+		between = self[start..finish-1]
+		strnew = between.gsub(pattern,replace)
+		self.replace(p1 + strnew + p2)
+		return self
+	end
+end
+
+def file_read(file)
+	data = '';
+	File.open(file, 'r') do |fp|
+		while line = fp.gets
+			data += line
+		end
+	end
+	return data;
+end
+
+def file_write(file,data)
+	File.open(file, 'w') do |fp|
+		fp.puts data
+	end
+end
+
+
 class App
 	BALCMS_VERSION = :'1.0.0'
 	BRANCH_STABLE = :'v1.0.0'
@@ -118,6 +162,13 @@ class App
 		git_email = `git config user.email`
 		if git_user.empty? or git_email.empty?
 		  abort(:'You must configure your git installation first.')
+		end
+	end
+
+	def has_changes
+		result = `git status`
+		if result.include? 'Changed but not updated'
+		  abort("You have un-committed changes that need to be committed before we can proceed.\n#{result}")
 		end
 	end
 
@@ -235,6 +286,28 @@ class App
 		` #{php_binary} ./scripts/cron.php;`
 	end
 
+	def maintenance
+		has_changes
+
+		file = '.htaccess'
+		data = file_read(file);
+		result = data.between_gsub('# Start Maintenance'+"\n",'# Finish Maintenance',/^#/,'')
+		file_write(file,data);
+
+		`git add .htaccess; git commit -m "Started Maintenance Mode"`
+	end
+
+	def maintenance_finish
+		has_changes
+
+		file = '.htaccess'
+		data = file_read(file);
+		result = data.between_gsub('# Start Maintenance'+"\n",'# Finish Maintenance',/^/,'#')
+		file_write(file,data);
+
+		`git add .htaccess; git commit -m "Finished Maintenance Mode"`
+	end
+
 	# ===========================================================================
 	# Git Helpers
 
@@ -273,10 +346,6 @@ class App
 	end
 
 	def deploy
-		result = `git status`
-		if result.include? 'Changed but not updated'
-		  abort("You have un-committed changes that need to be committed before we can deploy.\n#{result}")
-		end
 
 		puts \
 		` git checkout #{BRANCH_STABLE};
