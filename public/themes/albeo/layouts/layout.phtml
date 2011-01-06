@@ -38,20 +38,19 @@
 			'editor' => false,
 			'jquery_ui' => false,
 			'jquery_lightbox' => false,
-			'syntax_highlighter' => false,
-			'jquery_ajaxy' => false
+			'syntax_highlighter' => false
 		);
 		# Include
 		$headScript = $this->app()->headScript($scripts);
 		echo $headScript;
 	?>
-	
+
 	<!-- Top Bar -->
 	<div id="top"></div>
-	
+
 	<!-- Wrap -->
 	<div id="wrap">
-		
+
 		<!-- Header -->
 		<div class="header" id="header">
 			<h1>
@@ -67,9 +66,9 @@
 				</li>
 			</ul>
 		</div>
-		
+
 		<!-- Main Menu -->
-		<div id="main-menu">
+		<div id="nav-main">
 			<?=$this->app()
 				->getNavigationMenu('front.menu')
 				->setTemplate('<span>$label</span>')
@@ -77,10 +76,10 @@
 				->render()?>
 			</ul>
 		</div>
-		
+
 		<!-- Content -->
 		<div id="content">
-			
+
 			<!-- Article -->
 			<div class="sl-a">
 				<div class="sl-t"></div>
@@ -90,12 +89,12 @@
 				</div>
 				<div class="sl-b"></div>
 			</div>
-			
+
 			<!-- Sidebar -->
 			<div class="sr-a">
 				<div class="sr-t"></div>
 				<div class="sr">
-					
+
 					<!--Search -->
 					<div class="search-all">
 						<form id="search" action="<?=$this->url()->action('search')->search()->toString()?>" method="post" class="search">
@@ -106,7 +105,7 @@
 							<?=$this->formSubmit('search[submit]','Search',array('class'=>'button white small'))?>
 						</form>
 					</div>
-					
+
 					<!-- Categories Widget -->
 					<div class="categ-all">
 						<?
@@ -121,7 +120,7 @@
 							));
 						?>
 					</div>
-					
+
 					<!-- Recent Widget -->
 					<div class="widget">
 						<?
@@ -137,7 +136,7 @@
 							));
 						?>
 					</div>
-					
+
 					<!-- Archives Widget -->
 					<div class="widget tags">
 						<?=$this->partial('partials/nav-tags.phtml',array(
@@ -150,7 +149,7 @@
 				<div class="sr-b"></div>
 			</div>
 		</div>
-		
+
 		<!-- Footer -->
 		<div id="footer">
 			<p class="theme">

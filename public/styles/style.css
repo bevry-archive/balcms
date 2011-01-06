@@ -5,7 +5,7 @@
 	}
 
 /* Aloha */
-	
+
 	.GENTICS_editable {
 		margin: 0.5em;
 		min-height: 4em;
@@ -16,7 +16,7 @@
 	ul.x-tab-strip li {
 		margin-bottom: 0px;
 	}
-	
+
 /* Misc */
 
 	.max_file_size_text {
@@ -25,9 +25,9 @@
 		font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 		font-style:italic;
 	}
-	
+
 /* Widgets */
-	
+
 	.widget-youtube header {
 		display: none; /*displayed within video*/
 	}
@@ -36,7 +36,7 @@
 		min-height: 300px;
 		height: auto;
 	}
-	
+
 	.widget-vimeo header {
 		display: none; /*displayed within video*/
 	}
@@ -151,23 +151,26 @@
 	  background-color: #DFF2BF;
 	  background-image:url('../images/icons/success.png');
 	}
-	.log .warn {
+	.log .warn, .log .warning {
 	  color: #9F6000;
 	  background-color: #FEEFB3;
 	  background-image: url('../images/icons/warn.png');
 	}
-	.log .err, .log .crit, .log .alert, .log .emerg {
+	.log .err, .log .error,
+	.log .crit, .log .critical,
+	.log .alert,
+	.log .emerg, .log .emergency {
 	  color: #D8000C;
 	  background-color: #FFBABA;
 	  background-image: url('../images/icons/error.png');
 	}
-	.log .crit {
+	.log .crit, .log .critical {
 		font-size:110%;
 	}
 	.log .alert {
 		font-size:120%;
 	}
-	.log .emerg {
+	.log .emerg, .log .emergency {
 		font-size:130%;
 	}
 

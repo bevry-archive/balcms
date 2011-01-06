@@ -1,13 +1,14 @@
 
 @import url("style.scaffold");
 
-/*  
+
+/*
 Theme Name: Albeo
 Theme URI: http://designdisease.com/
 Description: A light and colorful two-column theme.
 Version: 1.1-wpcom
-Author: Elena G.	
-Author URI:  http://designdisease.com/ 
+Author: Elena G.
+Author URI:  http://designdisease.com/
 Tags: pink, blue, yellow, white, light, two-columns, custom-menu, fixed-width, right-sidebar, sticky-post, rtl-language-support, translation-ready
 */
 
@@ -29,7 +30,7 @@ img { padding: 0px; margin: 0px; border: none; text-align: center;}
 a:link { text-decoration: none; color : #4779ac; border: 0px; -moz-outline-style: none;}
 a:active { text-decoration: underline; color : #4779ac; border: 0px; -moz-outline-style: none;}
 a:visited { text-decoration: none; color : #4779ac; border: 0px; -moz-outline-style: none;}
-a:hover	{ text-decoration: underline; color : #003366; border: 0px; -moz-outline-style: none;} 
+a:hover	{ text-decoration: underline; color : #003366; border: 0px; -moz-outline-style: none;}
 a:focus { outline: none;-moz-outline-style: none;}
 
 h1, h2, h3, h4 { font-family: "Trebuchet MS"; }
@@ -42,7 +43,7 @@ h1, h2, h3, h4 { font-family: "Trebuchet MS"; }
 #content { width: 870px;}
 
 
-/* Header 
+/* Header
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 #header { width: 810px; padding: 25px 30px 10px 30px; margin-bottom: 10px; border-bottom: solid 1px #666; float: left; background: url(../images/header-bkg.png) no-repeat top; position: relative;}
 #header h1 { letter-spacing: -1px; padding: 10px 0px; margin: 0px; float: left; font: normal 38px/38px "Trebuchet MS"; width: 610px;}
@@ -54,21 +55,21 @@ h1, h2, h3, h4 { font-family: "Trebuchet MS"; }
 #header .rss { position: absolute; top: 50px; right: 0px; width: 290px; text-align:right; }
 #header .rss li { display: inline; background: url(../images/rss-ico.png) no-repeat left 2px; padding-left: 20px; margin-right: 5px; }
 
-#main-menu .menu { width: 810px; padding: 0px 30px; margin-bottom: 20px; float: left;}
-#main-menu .menu li { display: inline; font: bold 14px/14px "Trebuchet MS"; float: left; }
-#main-menu .menu li a { padding-left: 3px; margin-right: 2px; background: url(../images/menu-left.png) no-repeat left top; float: left;}
-#main-menu .menu li a span { padding: 4px 5px 5px 2px; display: block; background: url(../images/menu-right.png) no-repeat right top; float: right; }
-#main-menu .menu li a span { float: none; color: #1f89be;}
-#main-menu .menu li a:hover { background-position: 0% -23px; color:#fff; text-decoration: none;}
-#main-menu .menu li a:hover span { background-position: 100% -23px; color:#fff;}
+#nav-main .menu { width: 810px; padding: 0px 30px; margin-bottom: 20px; float: left;}
+#nav-main .menu li { display: inline; font: bold 14px/14px "Trebuchet MS"; float: left; }
+#nav-main .menu li a { padding-left: 3px; margin-right: 2px; background: url(../images/menu-left.png) no-repeat left top; float: left;}
+#nav-main .menu li a span { padding: 4px 5px 5px 2px; display: block; background: url(../images/menu-right.png) no-repeat right top; float: right; }
+#nav-main .menu li a span { float: none; color: #1f89be;}
+#nav-main .menu li a:hover { background-position: 0% -23px; color:#fff; text-decoration: none;}
+#nav-main .menu li a:hover span { background-position: 100% -23px; color:#fff;}
 
-#main-menu .menu .active a { background: url(../images/menu-left-h.png) no-repeat left bottom; color:#fff; }
-#main-menu .menu .active a span, .menu .active a:visited span, .menu .active a:hover span { background: url(../images/menu-right-h.png) no-repeat right bottom; color:#fff; }
+#nav-main .menu .active a { background: url(../images/menu-left-h.png) no-repeat left bottom; color:#fff; }
+#nav-main .menu .active a span, .menu .active a:visited span, .menu .active a:hover span { background: url(../images/menu-right-h.png) no-repeat right bottom; color:#fff; }
 
-#main-menu li {
+#nav-main li {
 	position: relative;
 }
-#main-menu ul ul {
+#nav-main ul ul {
 	background: #ad1735;
 	display: none;
 	position: absolute;
@@ -78,7 +79,7 @@ h1, h2, h3, h4 { font-family: "Trebuchet MS"; }
 	padding: 8px 0 0;
 	margin: 0;
 	z-index: 99999;
-	list-style-type: none;	
+	list-style-type: none;
 	width: 143px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -87,44 +88,44 @@ h1, h2, h3, h4 { font-family: "Trebuchet MS"; }
 	-webkit-box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
 	box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
 }
-#main-menu ul ul li {
+#nav-main ul ul li {
 	min-width: 85px;
 	margin: 0 0 6px;
 }
-#main-menu .menu ul.custom-menu ul a {
+#nav-main .menu ul.custom-menu ul a {
 	background: #ad1735;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;
 	width: 140px;
 	margin: 0;
 }
-#main-menu .menu ul.custom-menu ul a span {
+#nav-main .menu ul.custom-menu ul a span {
 	background: none;
 	color: #eee;
 }
-#main-menu .menu ul.custom-menu ul a:hover {
+#nav-main .menu ul.custom-menu ul a:hover {
 	background: #ff204d;
 	border-top: 1px solid #ff4b6f;
 	border-bottom: 1px solid #ff4b6f;
 }
-#main-menu ul li:hover > ul {
+#nav-main ul li:hover > ul {
 	display: block;
 }
-#main-menu ul ul li:hover > a {
+#nav-main ul ul li:hover > a {
 	background: #ff204d;
 }
-#main-menu ul ul ul {
+#nav-main ul ul ul {
 	left: 100%;
 	top: -8px;
 	padding: 8px 0 0;
 }
-#main-menu .sub-menu a,
-#main-menu .sub-menu a span {
+#nav-main .sub-menu a,
+#nav-main .sub-menu a span {
 	background-image: none !important;
 }
 
 
-/* Side Left 
+/* Side Left
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .sl-a { width: 540px; float: left; }
 .sl-t { background: url(../images/sl-t.png) no-repeat top; width: 540px; height: 15px; float: left;}
@@ -222,7 +223,7 @@ img.wp-smiley { margin:0; border:0; }
 
 
 
-/* Side Right 
+/* Side Right
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 .sr-a { width: 300px; float: right;}
@@ -293,7 +294,7 @@ img.wp-smiley { margin:0; border:0; }
 
 
 /* Comment List
- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */	
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .com-list {}
 .com-list h3 { font-size: 18px; line-height: 18px; font-weight: normal; padding-bottom: 10px; margin-bottom: 15px; background: url(../images/post-head.png) repeat-x bottom;}
 .com-list blockquote { margin-left: 1em; font-style: italic; }
@@ -310,7 +311,7 @@ img.wp-smiley { margin:0; border:0; }
 .com-con p.com-name, .com-con p.com-date, .com-con p.avatar { padding: 0; }
 
 /* Comment Form
- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */		
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 .com-form { background: #f8f8f2 url(../images/com-form-top.png) no-repeat left top; padding-top: 10px; }
 .com-form-bot { background: url(../images/com-form-bot.png) no-repeat left bottom; padding: 5px 20px 20px 20px;}
 
@@ -325,7 +326,7 @@ img.wp-smiley { margin:0; border:0; }
 .com-form label#subscribe-label, .com-form label#subscribe-blog-label {position:relative; left:0px; top: 0px;}
 
 
-/* Footer 
+/* Footer
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 #footer { width: 870px; padding: 10px 0px; float: left;}
 #footer p { font-size: 10px; padding-left: 20px; color:#7f8286;}
