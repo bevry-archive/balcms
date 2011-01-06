@@ -86,7 +86,6 @@
 						// Error
 						var error = data.error||data.responseText||false;
 						var error_message = data.content||error;
-						var error_message_full = 'An error occured: ' + error_message;
 
 						// Log what is happening
 						if ( Ajaxy.options.debug ) window.console.error('$.Ajaxy.configure.Controllers._generic.error', [this, arguments], error_message);
@@ -96,8 +95,8 @@
 
 						// Display State
 						var url = State.clean.location;
-						window.console.error(error_message_full);
-						$content.stop(true,true).show().html('<div class="log"><div class="event error"><span class="message"><strong>'+error_message_full+'</strong><br/>You may try to access the requested page manually by visiting: <a href="'+url+'">'+url+'</a></span></div></div>');
+						window.console.error(error_message);
+						$content.stop(true,true).show().html('<div class="log"><div class="event error"><span class="message"><strong>An error occurred.</strong><br/>You may try to access the requested page manually by visiting: <a href="'+url+'">'+url+'</a></span></div></div>');
 
 						// Done
 						return true;
