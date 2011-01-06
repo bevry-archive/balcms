@@ -107,6 +107,13 @@ def file_write(file,data)
 	end
 end
 
+# If you would like the result to be true for <= 0, then v1 should be greater.
+def version_compare(v1, v2)
+  a1 = v1.split('.').map{|s|s.to_i}
+  a2 = v2.split('.').map{|s|s.to_i}
+  result = (a1 <=> a2)
+  return result
+end
 
 class App
 	BALCMS_VERSION = :'1.0.0'
@@ -115,18 +122,14 @@ class App
 	BRANCH_BALCMS = :'v1.0.0-balcms'
 	BRANCH_MASTER = :'master'
 	MIN_PHP_VERSION = 5.2
-	MIN_GIT_VERSION = 1.6 # actually, only 1.5.3 is needed, but the comparison could get complicated
+	MIN_GIT_VERSION = '1.5.3'
 	attr_accessor :php_binary
 
 	def initialize
-		perform_checks
+		init_env
 	end
 
-	def perform_checks
-		if ( File.exist?('.cli-ignore-checks') )
-			return
-		end
-
+	def init_env
 		# Alias MySqL
 		mysql_binary = `which mysql`.strip
 		zend_mysql_binary = `which /usr/local/zend/mysql/bin/mysql`.strip
@@ -160,8 +163,8 @@ class App
 		end
 
 		# Check Git Version
-		git_version = (`git --version`)[12..14]
-		if git_version.to_f < MIN_GIT_VERSION
+		git_version = (`git --version`)[12..16]
+		if version_compare(MIN_GIT_VERSION,git_version) > 0
 		  abort("BalCMS requires at least Git version #{MIN_GIT_VERSION}")
 		end
 

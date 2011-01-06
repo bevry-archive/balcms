@@ -6,7 +6,6 @@ application/data/schema/schema.yml
 # == remove above lines in your installation == #
 
 # Standard Ignores
-.cli-ignore-checks
 application/data/database/*.db
 application/data/dump/*
 application/data/migrations
