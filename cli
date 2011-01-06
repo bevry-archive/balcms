@@ -131,7 +131,7 @@ class App
 		end
 
 		# Check for Requirements
-		reqs = ['rm','sed','curl','chmod','git','php','httpd',mysql_binary]
+		reqs = ['rm','sed','curl','chmod','git','php','htpasswd',mysql_binary]
 		reqs.each do |req|
 		  has_req = `which #{req}`.strip
 		  if has_req.empty?
