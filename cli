@@ -395,7 +395,8 @@ class App
 	def clean_styles
 		puts \
 		`	rm -Rf \
-				public/media/cache/styles/*;`
+				public/media/cache/styles/* \
+				common/scaffold/cache/*;`
 	end
 
 	def clean_scripts

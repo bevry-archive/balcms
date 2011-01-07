@@ -20,7 +20,7 @@ BalCMS is different from other CMS's as we can extend it directly by just adding
 - Scaffold for CSS (SASS like Syntax for CSS)
 - Automatic and Dynamic Image Resizing and Compression
 - Edit content using: [TinyMCE](http://tinymce.moxiecode.com/), [Aloha Editor](http://aloha-editor.com/) or [Bespin](http://mozillalabs.com/bespin/).
-
+- Built-in full support for [jQuery Ajaxy](http://balupton.com/jquery-ajaxy) - no configuration needed!
 
 ## Before you Start
 
