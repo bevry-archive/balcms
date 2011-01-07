@@ -49,6 +49,11 @@
 "error-doctrine-validation-unique": "A <em>$singular</em> item already exists with the same <em>$field</em>."
 "error-doctrine-validation-length": "<em>$field</em> must not be more than <em>$length</em> characters long."
 
+# Logs
+'log-request_details': 'Your request details'
+'log-scripts-refreshed': 'The scripts of this website were just refreshed.'
+'log-styles-refreshed': 'The styles of this website were just refreshed.'
+
 # Content
 "article-ancestors-home-label": "Home"
 "article-ancestors-home-title": "Home"
