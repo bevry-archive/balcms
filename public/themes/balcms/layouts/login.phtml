@@ -14,7 +14,14 @@
 </head>
 <body>
     <?
-		$headScript = $this->app()->headScript();
+    # Prepare
+		$scripts = array(
+			'jquery_ajaxy' => false,
+			'jquery_ajaxy_helper' => false,
+			'jquery_lightbox' => false
+		);
+		# Include
+		$headScript = $this->app()->headScript($scripts);
 		if ( APPLICATION_ENV !== 'development' )
 			$headScript
 				// GSFN
