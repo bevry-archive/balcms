@@ -1,7 +1,26 @@
 <?php
+# Load
+if ( empty($GLOBALS['Application']) ) {
+	# Bootstrap
+	require_once(
+		implode(
+			DIRECTORY_SEPARATOR,
+			array(
+				dirname(__FILE__),
+				'..',
+				'..',
+				'scripts',
+				'bootstrapr.php'
+			)
+		)
+	);
+	$Bootstrapr = Bootstrapr::getInstance();
+}
+else {
+	$Bootstrapr = Bootstrapr::getInstance();
+}
+
 # Init
-$bootstrapr = str_replace('public/styles/scaffold.php','',$_SERVER['SCRIPT_FILENAME']).'/scripts/bootstrapr.php';
-require_once($bootstrapr);
 $Bootstrapr->bootstrap('application-configuration');
 
 /**
@@ -13,7 +32,7 @@ $Bootstrapr->bootstrap('application-configuration');
 require_once SCAFFOLD_PATH.'/lib/Scaffold/Environment.php';
 
 /**
- * Set timezone, just in case it isn't set. PHP 5.3+ 
+ * Set timezone, just in case it isn't set. PHP 5.3+
  * throws a tantrum if you try and use time() without
  * this being set.
  */
@@ -29,7 +48,7 @@ Scaffold_Environment::auto_load();
  */
 Scaffold_Environment::handle_errors();
 
-/** 
+/**
  * Set the view to use for errors and exceptions
  */
 Scaffold_Environment::set_view(realpath(SCAFFOLD_PATH.'/views/error.php'));
