@@ -133,7 +133,7 @@ So let's take a look at the structure:
 				config/ - Our module specific Configuration
 
 				controllers/ - Our module specific Business Logic
-					BackController.php - For our Adminstration/Back Area
+					BackController.php - For our Administration/Back Area
 					FeedController.php - For our News/RSS/Atom/Subscription Feeds
 					FrontController.php - For our Public/Front Area
 
@@ -172,7 +172,7 @@ So let's take a look at the structure:
 
 		themes/ - Where our applications themes go, if you want to customise the look and feel of the application, this is where it's at.
 			albeo/ - The default theme. Creamy green.
-			balcms/ - The adminstration theme.
+			balcms/ - The administration theme.
 			titan - A creamy brown theme.
 
 	README.md - This readme that you're reading right now.
